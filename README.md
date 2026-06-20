@@ -20,3 +20,25 @@ Enterprise-grade banking ledger built with **Java 21**, **Spring Boot 3**, **DDD
 | Cache          | Redis                             |
 | Build          | Maven                             |
 
+## API Endpoints
+
+### Accounts
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/accounts` | Open a new account |
+| DELETE | `/api/v1/accounts/{accountId}` | Close an account |
+
+### Transactions
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/accounts/{accountId}/credit` | Credit an account |
+| POST | `/api/v1/accounts/{accountId}/debit` | Debit an account |
+| POST | `/api/v1/accounts/{accountId}/transfer` | Transfer between accounts |
+
+## Idempotency
+
+Financial endpoints (`credit`, `debit`, `transfer`) require an `Idempotency-Key` header.
+Duplicate requests with the same key return `409 Conflict`.
+Keys are stored in Redis with 24h TTL.
