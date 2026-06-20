@@ -39,6 +39,11 @@ public class Transaction {
         return new Transaction(TransactionId.generate(), sourceAccountId, null, amount, TransactionType.DEBIT, LocalDateTime.now());
     }
 
+    public static Transaction reconstitute(TransactionId id, AccountId sourceAccountId, AccountId targetAccountId,
+                                           Money amount, TransactionType type, LocalDateTime occurredAt) {
+        return new Transaction(id, sourceAccountId, targetAccountId, amount, type, occurredAt);
+    }
+
     public TransactionId getId() { return id; }
     public AccountId getSourceAccountId() { return sourceAccountId; }
     public AccountId getTargetAccountId() { return targetAccountId; }
