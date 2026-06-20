@@ -30,6 +30,19 @@ public class Account {
         this.createdAt = createdAt;
     }
 
+    private Account(AccountId id, String ownerName, AccountType type, Money balance, boolean active, LocalDateTime createdAt) {
+        this.id = id;
+        this.ownerName = ownerName;
+        this.type = type;
+        this.balance = balance;
+        this.active = active;
+        this.createdAt = createdAt;
+    }
+
+    public static Account reconstitute(AccountId id, String ownerName, AccountType type, Money balance, boolean active, LocalDateTime createdAt) {
+        return new Account(id, ownerName, type, balance, active, createdAt);
+    }
+
     public static Account open(String ownerName, AccountType type) {
         if (ownerName == null || ownerName.isBlank()) throw new IllegalArgumentException("Owner name is required");
         if (type == null) throw new IllegalArgumentException("Account type is required");
